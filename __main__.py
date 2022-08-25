@@ -9,7 +9,7 @@ pygame.display.set_caption('Frogger')
 clock = pygame.time.Clock()
 
 all_sprites = pygame.sprite.Group()
-
+    
 player = Player((0,0), all_sprites)
 
 # Game loop
