@@ -1,6 +1,7 @@
 import pygame, sys
 from settings import *
 from player import Player
+from car import Car
 
 # Basic init
 pygame.init()
@@ -10,7 +11,8 @@ clock = pygame.time.Clock()
 
 all_sprites = pygame.sprite.Group()
     
-player = Player((0,0), all_sprites)
+player = Player((400,500), all_sprites)
+car = Car((100,200), all_sprites)
 
 # Game loop
 while True:
