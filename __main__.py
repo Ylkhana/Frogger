@@ -1,5 +1,7 @@
 from lib2to3.pgen2 import grammar
+from selectors import EVENT_WRITE
 import pygame, sys
+from random import choice, randint, random
 from settings import *
 from player import Player
 from car import Car
@@ -32,7 +34,11 @@ clock = pygame.time.Clock()
 all_sprites = AllSprites()
     
 player = Player((600,400), all_sprites)
-car = Car((600,200), all_sprites)
+
+# timer
+car_timer = pygame.event.custom_type()
+pygame.time.set_timer(car_timer, 50)
+pos_list = []
 
 # Game loop
 while True:
@@ -40,6 +46,16 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+
+        if event.type == car_timer:
+            random_pos = choice(CAR_START_POSITIONS)
+            if random_pos not in pos_list:
+                adjusted_pos = (random_pos[0], random_pos[1] + randint(-8, 8))
+                Car(adjusted_pos, all_sprites)
+                pos_list.append(random_pos)
+            if len(pos_list) > 5:
+                del pos_list[0]
+
 
     dt = clock.tick(60) / 1000
 
