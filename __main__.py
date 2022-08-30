@@ -5,6 +5,7 @@ from random import choice, randint, random
 from settings import *
 from player import Player
 from car import Car
+from sprite import *
 
 class AllSprites(pygame.sprite.Group):
     def __init__(self) -> None:
@@ -33,12 +34,23 @@ clock = pygame.time.Clock()
 
 all_sprites = AllSprites()
     
-player = Player((600,400), all_sprites)
+player = Player((2062,3274), all_sprites)
 
 # timer
 car_timer = pygame.event.custom_type()
 pygame.time.set_timer(car_timer, 50)
 pos_list = []
+
+# sprite setup
+for sprite_name, pos_list in SIMPLE_OBJECTS.items():
+    surf = pygame.image.load(f'graphics/objects/simple/{sprite_name}.png').convert_alpha()
+    for sprite_pos in pos_list:
+        SimpleSprite(surf, sprite_pos, all_sprites)
+
+for sprite_name, pos_list in LONG_OBJECTS.items():
+    surf = pygame.image.load(f'graphics/objects/long/{sprite_name}.png').convert_alpha()
+    for sprite_pos in pos_list:
+        LongSprite(surf, sprite_pos, all_sprites)
 
 # Game loop
 while True:
