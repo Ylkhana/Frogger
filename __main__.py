@@ -42,6 +42,14 @@ car_timer = pygame.event.custom_type()
 pygame.time.set_timer(car_timer, 50)
 pos_list = []
 
+font = pygame.font.Font(None, 50)
+win_text = f'Félicitations ! Vous avez gagné en {pygame.time.get_ticks()/1000} secondes !'
+win_surf = font.render(win_text, True, "White")
+win_rect = win_surf.get_rect(center = (WINDOW_WIDTH/2, WINDOW_HEIGHT/2))
+
+music = pygame.mixer.Sound("audio/music.mp3")
+music.play(loops = -1)
+
 # sprite setup
 for sprite_name, pos_list in SIMPLE_OBJECTS.items():
     surf = pygame.image.load(f'graphics/objects/simple/{sprite_name}.png').convert_alpha()
@@ -81,5 +89,8 @@ while True:
 
         # Draw
         all_sprites.custom_draw()
+    else:
+        display_surface.fill("Teal")
+        display_surface.blit(win_surf, win_rect)
 
     pygame.display.update()
