@@ -5,6 +5,7 @@ from random import choice
 class Car(pygame.sprite.Sprite):
     def __init__(self, pos, groups) -> None:
         super().__init__(groups)
+        self.name = 'car'
 
         for _, _, img_list in walk('graphics/cars'):
             car_color = choice(img_list)

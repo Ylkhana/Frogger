@@ -33,8 +33,9 @@ pygame.display.set_caption('Frogger')
 clock = pygame.time.Clock()
 
 all_sprites = AllSprites()
+obstacle_sprites = pygame.sprite.Group()
     
-player = Player((2062,3274), all_sprites)
+player = Player((2062,3274), all_sprites, obstacle_sprites)
 
 # timer
 car_timer = pygame.event.custom_type()
@@ -45,12 +46,12 @@ pos_list = []
 for sprite_name, pos_list in SIMPLE_OBJECTS.items():
     surf = pygame.image.load(f'graphics/objects/simple/{sprite_name}.png').convert_alpha()
     for sprite_pos in pos_list:
-        SimpleSprite(surf, sprite_pos, all_sprites)
+        SimpleSprite(surf, sprite_pos, [all_sprites, obstacle_sprites])
 
 for sprite_name, pos_list in LONG_OBJECTS.items():
     surf = pygame.image.load(f'graphics/objects/long/{sprite_name}.png').convert_alpha()
     for sprite_pos in pos_list:
-        LongSprite(surf, sprite_pos, all_sprites)
+        LongSprite(surf, sprite_pos, [all_sprites, obstacle_sprites])
 
 # Game loop
 while True:
@@ -63,7 +64,7 @@ while True:
             random_pos = choice(CAR_START_POSITIONS)
             if random_pos not in pos_list:
                 adjusted_pos = (random_pos[0], random_pos[1] + randint(-8, 8))
-                Car(adjusted_pos, all_sprites)
+                Car(adjusted_pos, [all_sprites, obstacle_sprites])
                 pos_list.append(random_pos)
             if len(pos_list) > 5:
                 del pos_list[0]
