@@ -11,6 +11,7 @@ class Car(pygame.sprite.Sprite):
             car_color = choice(img_list)
         self.image = pygame.image.load('graphics/cars/' + car_color).convert_alpha()
         self.rect = self.image.get_rect(center = pos)
+        self.hitbox = self.rect.inflate(0, -self.rect.height/2)
 
         self.pos = pygame.math.Vector2(self.rect.center)
 
@@ -24,7 +25,8 @@ class Car(pygame.sprite.Sprite):
 
     def update(self, dt) -> None:
         self.pos += self.direction * self.speed *dt
-        self.rect.center = (round(self.pos.x), round(self.pos.y))
+        self.hitbox.center = (round(self.pos.x), round(self.pos.y))
+        self.rect.center = self.hitbox.center
 
         if not -200 < self.rect.x < 3400 :
             self.kill()
