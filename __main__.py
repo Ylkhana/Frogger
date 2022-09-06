@@ -74,10 +74,12 @@ while True:
 
     display_surface.fill((0,0,0))
 
-    # Update
-    all_sprites.update(dt)
+    
+    if player.pos.y > 1180:
+        # Update
+        all_sprites.update(dt)
 
-    # Draw
-    all_sprites.custom_draw()
+        # Draw
+        all_sprites.custom_draw()
 
     pygame.display.update()
